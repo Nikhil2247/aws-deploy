@@ -10,7 +10,7 @@ const ProductSearch = () => {
   // API Call to search products
   const searchProducts = async (query) => {
     try {
-      const response = await axios.get(`http://localhost:1000/api/products/search`, {
+      const response = await axios.get(`/api/products/search`, {
         params: { searchQuery: query },
       });
       return response.data;

@@ -46,7 +46,7 @@ const InventoryDashboard = () => {
     const fetchInventoryData = async () => {
       try {
         const { data } = await axios.get(
-          "http://localhost:1000/api/products/get-products"
+          "/api/products/get-products"
         );
 
         if (data.status === "success") {
@@ -114,7 +114,7 @@ const InventoryDashboard = () => {
 
           // Fetch the sold products
           const soldResponse = await axios.get(
-            "http://localhost:1000/api/inventory/sold-products"
+            "/api/inventory/sold-products"
           );
 
           const totalSoldProducts = soldResponse.data.soldProducts.reduce(

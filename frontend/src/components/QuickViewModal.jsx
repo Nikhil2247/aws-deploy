@@ -102,19 +102,19 @@ const QuickViewModal = ({ product, open, setOpen, addToCart }) => {
           {/* Price */}
           <div className="flex items-center space-x-4 mb-6">
             <span className="text-2xl font-semibold text-gray-800">
-              ${product.variants?.[0]?.price || product.price}
+              ${product.variants?.[0]?.sellingPrice || product.sellingPrice}
             </span>
             {product.variants?.[0]?.costPrice >
-              product.variants?.[0]?.price && (
+              product.variants?.[0]?.sellingPrice && (
               <span className="text-md bg-[#D2EF9A] px-2 py-1 rounded-lg">
                 Save $
                 {(
-                  product.variants[0]?.costPrice - product.variants[0]?.price
+                  product.variants[0]?.costPrice - product.variants[0]?.sellingPrice
                 ).toFixed(2)}{" "}
                 (
                 {(
                   ((product.variants[0]?.costPrice -
-                    product.variants[0]?.price) /
+                    product.variants[0]?.sellingPrice) /
                     product.variants[0]?.costPrice) *
                   100
                 ).toFixed(0)}
