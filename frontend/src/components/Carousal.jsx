@@ -14,17 +14,17 @@ const handleDragStart = (e) => e.preventDefault();
 
 const hero = {
   hero1: {
-    src: "../images/c1.webp",
+    src: "../images/b1.png",
     para: "Sale! up to 50% off!",
     heading: "Stylish Looks For Any Season",
   },
   hero2: {
-    src: "../images/c2.webp",
+    src: "../images/b2.png",
     para: "Sale! up to 50% off!",
     heading: "Winter Sale Collections",
   },
   hero3: {
-    src: "../images/c3.webp",
+    src: "../images/b3.png",
     para: "Sale! up to 50% off!",
     heading: "Fashion For Every Occasion",
   },

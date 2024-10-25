@@ -262,7 +262,7 @@ const ProductForm = ({
                           />
                         </Form.Item>
 
-                        <Form.Item label="Price" name={[field.name, "price"]}>
+                        <Form.Item label="Buying Price" name={[field.name, "price"]}>
                           <Input
                             type="number"
                             placeholder="Enter price"

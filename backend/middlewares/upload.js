@@ -1,17 +1,10 @@
 const multer = require('multer');
 const path = require('path');
+const sharp = require('sharp');
+const fs = require('fs');
 
-// Define storage for uploaded images
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, '../uploads/categories'); // Ensure this directory exists
-  },
-  filename: function (req, file, cb) {
-    // Create a unique filename using the current timestamp and original name
-    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-    cb(null, uniqueSuffix + path.extname(file.originalname));
-  },
-});
+// Define storage for uploaded images (in memory for processing)
+const storage = multer.memoryStorage();
 
 // File filter to allow only image files
 const fileFilter = (req, file, cb) => {
@@ -28,11 +21,37 @@ const fileFilter = (req, file, cb) => {
   }
 };
 
-// Initialize multer with storage and file filter
+// Initialize multer with storage and file filter for single image upload
 const upload = multer({
   storage: storage,
   limits: { fileSize: 5 * 1024 * 1024 }, // 5 MB file size limit
   fileFilter: fileFilter,
 });
 
-module.exports = upload;
+// Middleware to process a single image and convert it to WebP format
+const processImage = async (req, res, next) => {
+  if (!req.file) {
+    return next(new Error('No file uploaded'));
+  }
+
+  try {
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
+    const outputFilename = `${uniqueSuffix}.webp`;
+    const outputPath = path.join('../uploads/categories', outputFilename);
+
+    // Convert the uploaded image buffer to WebP format and save it
+    await sharp(req.file.buffer)
+      .webp({ quality: 80 })
+      .toFile(outputPath);
+
+    // Update req.file with the new file path and filename
+    req.file.filename = outputFilename;
+    req.file.path = outputPath;
+
+    next();
+  } catch (err) {
+    next(err);
+  }
+};
+
+module.exports = { upload, processImage };

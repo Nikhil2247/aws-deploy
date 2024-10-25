@@ -379,17 +379,17 @@ const Product = () => {
                   {/* Price */}
                   <div className="flex items-center space-x-2 mb-2">
                     <span className="text-xl instrument-sans text-gray-600">
-                      ${product.variants?.[0]?.price || product.price}
+                      ${product.variants?.[0]?.sellingPrice || product.sellingPrice}
                     </span>
                     <span className="text-xl instrument-sans text-red-600 line-through">
                       ${product.variants?.[0]?.costPrice || product.costPrice}
                     </span>
                     {product.variants?.[0]?.costPrice >
-                      product.variants?.[0]?.price && (
+                      product.variants?.[0]?.sellingPrice && (
                       <span className="text-md bg-[#D2EF9A] px-2 py-1 rounded-lg">
                         {(
                           ((product.variants[0]?.costPrice -
-                            product.variants[0]?.price) /
+                            product.variants[0]?.sellingPrice) /
                             product.variants[0]?.costPrice) *
                           100
                         ).toFixed(0)}

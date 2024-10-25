@@ -63,8 +63,8 @@ const Sidebar = () => {
               isOpen ? "opacity-100" : "opacity-0 hidden"
             }`}
           >
-            <h2 className="font-bold text-2xl flex items-center gap-2">
-              <span className="mt-1 ml-2">Dashboard</span>
+            <h2 className="font-bold text-2xl flex items-center gapx-2 py-1">
+              <span className="mt-1 ml-2 instrument">Dashboard</span>
             </h2>
             {/* XMarkIcon placed on the opposite side */}
             <button
@@ -90,12 +90,12 @@ const Sidebar = () => {
             <li>
               <NavLink
                 to="/dashboard/admin"
-                className="flex items-center p-2 rounded-lg hover:bg-gray-700 transition-colors"
+                className="flex items-center px-2 py-1 rounded-lg hover:bg-gray-700 transition-colors"
                 activeClassName="bg-gray-700"
               >
                 <ChartPieIcon className="h-6 w-6 text-white" />
                 <span
-                  className={`ml-3 transition-opacity duration-300 ease-in-out ${
+                  className={`ml-3 transition-opacity duration-300 instrument ease-in-out ${
                     !isOpen ? "opacity-0 hidden" : "opacity-100"
                   }`}
                 >
@@ -108,12 +108,12 @@ const Sidebar = () => {
               <button
                 type="button"
                 onClick={handleDrop} // Handle dropdown toggle on click
-                className="flex items-center w-full p-2 text-base text-white transition duration-75 rounded-lg group hover:bg-gray-700  dark:hover:bg-gray-700"
+                className="flex items-center w-full px-2 py-1 text-white transition duration-75 rounded-lg group hover:bg-gray-700  dark:hover:bg-gray-700"
                 aria-controls="dropdown-example"
               >
                 <ChartPieIcon className="h-6 w-6 text-white" />
                 <span
-                  className={`flex-1 ms-3 text-left transition-opacity duration-300 ease-in-out" ${
+                  className={`flex-1 ms-3 text-left transition-opacity text-[18px] instrument duration-300 ease-in-out" ${
                     !isOpen ? "opacity-0 hidden" : "opacity-100"
                   }`}
                 >
@@ -145,12 +145,12 @@ const Sidebar = () => {
                  <li>
                   <NavLink
                     to="/dashboard/admin/inventory-dashboard"
-                    className="flex items-center p-2 rounded-lg hover:bg-gray-700 transition-colors"
+                    className="flex items-center px-2 py-1 rounded-lg hover:bg-gray-700 transition-colors"
                     activeClassName="bg-gray-700"
                   >
                     <ChartPieIcon className="h-6 w-6 text-white" />
                     <span
-                      className={`ml-3 transition-opacity duration-300 ease-in-out${
+                      className={`ml-3 transition-opacity instrument text-[16px] duration-300 ease-in-out${
                         !isOpen ? "opacity-0 hidden" : "opacity-100"
                       }`}
                     >
@@ -161,12 +161,12 @@ const Sidebar = () => {
                 <li>
                   <NavLink
                     to="/dashboard/admin/inventory"
-                    className="flex items-center p-2 rounded-lg hover:bg-gray-700  transition-colors"
+                    className="flex items-center px-2 py-1 rounded-lg hover:bg-gray-700  transition-colors"
                     activeClassName="bg-gray-700"
                   >
                     <BookmarkIcon className="h-6 w-6 text-white" />
                     <span
-                      className={`ml-3 transition-opacity duration-300 ease-in-out${
+                      className={`ml-3 transition-opacity instrument text-[16px] duration-300 ease-in-out${
                         !isOpen ? "opacity-0 hidden" : "opacity-100"
                       }`}
                     >
@@ -181,12 +181,12 @@ const Sidebar = () => {
               <button
                 type="button"
                 onClick={handleDropdown} // Handle dropdown toggle on click
-                className="flex items-center w-full p-2 text-base text-white transition duration-75 rounded-lg group hover:bg-gray-700  dark:hover:bg-gray-700"
+                className="flex items-center w-full px-2 py-1 text-white transition duration-75 rounded-lg group hover:bg-gray-700  dark:hover:bg-gray-700"
                 aria-controls="dropdown-example"
               >
                 <ShoppingCartIcon class="h-6 w-6 text-white" />
                 <span
-                  className={`flex-1 ms-3 text-left transition-opacity duration-300 ease-in-out" ${
+                  className={`flex-1 ms-3 text-left transition-opacity text-[18px] instrument duration-300 ease-in-out" ${
                     !isOpen ? "opacity-0 hidden" : "opacity-100"
                   }`}
                 >
@@ -218,12 +218,12 @@ const Sidebar = () => {
                 <li>
                   <NavLink
                     to="/dashboard/admin/create-product"
-                    className="flex items-center p-2 rounded-lg hover:bg-gray-700 transition-colors"
+                    className="flex items-center px-2 py-1 rounded-lg hover:bg-gray-700 transition-colors"
                     activeClassName="bg-gray-700"
                   >
                     <ShoppingCartIcon className="h-6 w-6 text-white" />
                     <span
-                      className={`ml-3 transition-opacity duration-300 text-sm ease-in-out${
+                      className={`ml-3 transition-opacity duration-300 instrument text-sm ease-in-out${
                         !isOpen ? "opacity-0 hidden" : "opacity-100"
                       }`}
                     >
@@ -234,12 +234,12 @@ const Sidebar = () => {
                 <li>
                   <NavLink
                     to="/dashboard/admin/create-category"
-                    className="flex items-center p-2 rounded-lg hover:bg-gray-700 transition-colors"
+                    className="flex items-center px-2 py-1 rounded-lg hover:bg-gray-700 transition-colors"
                     activeClassName="bg-gray-700"
                   >
                     <TagIcon className="h-6 w-6 text-white" />
                     <span
-                      className={`ml-3 transition-opacity duration-300 text-sm ease-in-out ${
+                      className={`ml-3 transition-opacity duration-300 instrument text-sm ease-in-out ${
                         !isOpen ? "opacity-0 hidden" : "opacity-100"
                       }`}
                     >
@@ -250,12 +250,12 @@ const Sidebar = () => {
                 <li>
                   <NavLink
                     to="/dashboard/admin/create-color"
-                    className="flex items-center p-2 rounded-lg hover:bg-gray-700 transition-colors"
+                    className="flex items-center px-2 py-1 rounded-lg hover:bg-gray-700 transition-colors"
                     activeClassName="bg-gray-700"
                   >
                     <TagIcon className="h-6 w-6 text-white" />
                     <span
-                      className={`ml-3 transition-opacity duration-300 text-sm ease-in-out ${
+                      className={`ml-3 transition-opacity duration-300 instrument text-sm ease-in-out ${
                         !isOpen ? "opacity-0 hidden" : "opacity-100"
                       }`}
                     >
@@ -266,12 +266,12 @@ const Sidebar = () => {
                 <li>
                   <NavLink
                     to="/dashboard/admin/create-Size"
-                    className="flex items-center p-2 rounded-lg hover:bg-gray-700 transition-colors"
+                    className="flex items-center px-2 py-1 rounded-lg hover:bg-gray-700 transition-colors"
                     activeClassName="bg-gray-700"
                   >
                     <TagIcon className="h-6 w-6 text-white" />
                     <span
-                      className={`ml-3 transition-opacity duration-300 text-sm ease-in-out ${
+                      className={`ml-3 transition-opacity duration-300 instrument text-sm ease-in-out ${
                         !isOpen ? "opacity-0 hidden" : "opacity-100"
                       }`}
                     >
@@ -285,7 +285,7 @@ const Sidebar = () => {
             <li>
               <NavLink
                 to="/dashboard/admin/products"
-                className="flex items-center p-2 rounded-lg hover:bg-gray-700 transition-colors"
+                className="flex items-center px-2 py-1 rounded-lg hover:bg-gray-700 transition-colors"
                 activeClassName="bg-gray-700"
               >
                 <ShoppingBagIcon className="h-6 w-6 text-white" />
@@ -302,12 +302,12 @@ const Sidebar = () => {
             <li>
               <NavLink
                 to="/dashboard/admin/orders"
-                className="flex items-center p-2 rounded-lg hover:bg-gray-700 transition-colors"
+                className="flex items-center px-2 py-1 rounded-lg hover:bg-gray-700 transition-colors"
                 activeClassName="bg-gray-700"
               >
                 <ClipboardDocumentListIcon className="h-6 w-6 text-white" />
                 <span
-                  className={`ml-3 transition-opacity duration-300 ease-in-out ${
+                  className={`ml-3 transition-opacity duration-300 instrument ease-in-out ${
                     !isOpen ? "opacity-0 hidden" : "opacity-100"
                   }`}
                 >
@@ -319,12 +319,12 @@ const Sidebar = () => {
             <li>
               <NavLink
                 to="/dashboard/admin/users"
-                className="flex items-center p-2 rounded-lg hover:bg-gray-700 transition-colors"
+                className="flex items-center px-2 py-1 rounded-lg hover:bg-gray-700 transition-colors"
                 activeClassName="bg-gray-700"
               >
                 <UsersIcon className="h-6 w-6 text-white" />
                 <span
-                  className={`ml-3 transition-opacity duration-300 ease-in-out ${
+                  className={`ml-3 transition-opacity duration-300 instrument ease-in-out ${
                     !isOpen ? "opacity-0 hidden" : "opacity-100"
                   }`}
                 >
@@ -338,7 +338,7 @@ const Sidebar = () => {
               <button onClick={handleLogout} className="flex items-center">
                 <UserCircleIcon class="h-6 w-6 " />
                 <span
-                  className={`ml-2 transition-opacity duration-300 ease-in-out ${
+                  className={`ml-2 transition-opacity duration-300 instrument ease-in-out ${
                     !isOpen ? "opacity-0 hidden" : "opacity-100"
                   }`}
                 >

@@ -1,5 +1,3 @@
-// routes/productRoutes.js
-
 const express = require('express');
 const router = express.Router();
 const productController = require('../controllers/productController');
@@ -10,7 +8,8 @@ const {
   authorizeRoles,
 } = require('../middlewares/authMiddleware');
 
-const upload = require('../middlewares/multer'); 
+// Multer and image processing middlewares
+const { upload, processImages } = require('../middlewares/multer');
 
 // Routes for products
 
@@ -18,8 +17,9 @@ const upload = require('../middlewares/multer');
 router.post(
   '/create',
   authenticateUser,
-  // authorizeRoles,
-  upload.array('images',10), // Adjust field name and max count as needed
+  // authorizeRoles, // Uncomment this if authorization is implemented
+  upload.array('images', 10), // Adjust field name and max count as needed
+  processImages,
   productController.createProduct
 );
 
@@ -33,8 +33,9 @@ router.get('/:id', productController.getProductById);
 router.put(
   '/update/:id',
   authenticateUser,
-  // authorizeRoles,
+  // authorizeRoles, // Uncomment this if authorization is implemented
   upload.array('images', 10),
+  processImages,
   productController.updateProduct
 );
 
@@ -42,16 +43,17 @@ router.put(
 router.delete(
   '/delete/:id',
   authenticateUser,
-  // authorizeRoles,
+  // authorizeRoles, // Uncomment this if authorization is implemented
   productController.deleteProduct
 );
 
 // Route to get similar products
 router.get('/similar/:id', productController.getSimilarProducts);
 
-router.get('/category/:category', productController.getbyCategory)
+// Get products by category
+router.get('/category/:category', productController.getbyCategory);
 
-// Search route
+// Search products by keyword
 router.get('/search/:keyword', productController.searchProducts);
 
 module.exports = router;

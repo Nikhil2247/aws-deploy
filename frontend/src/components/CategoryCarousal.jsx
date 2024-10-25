@@ -35,13 +35,13 @@ const CategoryCarousal = () => {
   const items = Array.isArray(categoryDetail.categories)
     ? categoryDetail.categories.map((category, index) => (
         <NavLink key={index} to={`/category/${category._id}`}>
-          <div onDragStart={handleDragStart} className="item mt-3">
-            <div className="max-w-xs text-center">
-              <div className=" group ">
+          <div onDragStart={handleDragStart} className="item mt-3 ml-2 mr-2">
+            <div className=" text-center">
+              <div className="  ">
                 <img
                   src={category.image} // Assuming the API returns an image field
                   alt={category.name} // Assuming the API returns a name field
-                  className=" rounded-full ml-4 w-52 h-52 transition-transform duration-500 group-hover:scale-110"
+                  className=" rounded-md bg-gray-100 px-3 h-44 w-full"
                 />
 
                 <div className="instrument-sans text-xl mt-4">
@@ -97,7 +97,7 @@ const CategoryCarousal = () => {
 
           {/* Next Button */}
           <button
-            className="absolute top-24 -right-5 bg-white hover:bg-gray-100 hover:scale-125 duration-200 transition-all focus:border-blue-400 border-2 text-white p-3 rounded-full hidden sm:block"
+            className="absolute top-20 -right-5 bg-white hover:bg-gray-100 hover:scale-125 duration-200 transition-all focus:border-blue-400 border-2 text-white p-3 rounded-full hidden sm:block"
             onClick={() => carouselRef.current?.slideNext()}
           >
             <ChevronRightIcon className="h-6 w-6 text-gray-500" />
@@ -105,7 +105,7 @@ const CategoryCarousal = () => {
 
           {/* Previous Button */}
           <button
-            className="absolute top-24 -left-2 bg-white hover:bg-gray-100 hover:scale-125 duration-200 transition-all focus:border-blue-400 border-2 text-white p-3 rounded-full hidden sm:block"
+            className="absolute top-20 -left-2 bg-white hover:bg-gray-100 hover:scale-125 duration-200 transition-all focus:border-blue-400 border-2 text-white p-3 rounded-full hidden sm:block"
             onClick={() => carouselRef.current?.slidePrev()}
           >
             <ChevronLeftIcon className="h-6 w-6 text-gray-500" />

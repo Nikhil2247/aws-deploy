@@ -97,7 +97,7 @@ const QuickViewModal = ({ product, open, setOpen, addToCart }) => {
         {/* Product Details */}
         <div className="mt-6">
           <h1 className="text-2xl mb-4">{product.name}</h1>
-          <p>{product.description}</p>
+          <p className="description" dangerouslySetInnerHTML={{ __html: product.description }}></p>
 
           {/* Price */}
           <div className="flex items-center space-x-4 mb-6">
