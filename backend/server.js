@@ -21,14 +21,14 @@ const cors = require ("cors");
 
 
 dotenv.config();
-
+const _dirname = path.join("");
 const app = express();
 app.use(express.json());
 app.use(morgan("dev"));
 app.use(cors());
 app.options('*', cors()); // Enable pre-flight for all routes
 app.use(cors({
-  origin: 'http://localhost:3000', // Frontend origin
+  origin: '*', // Frontend origin
   credentials: true,
 }));
 app.use(bodyParser.json({ limit: '10mb' }));
@@ -49,6 +49,9 @@ app.use("/api",inventoryRoutes)
 app.use("/api/order",orderRoutes)
 app.use('/api', navigationRoutes);
 
+
+const buildPath = path.join(_dirname, "../frontend/build")
+app.use(express.static(buildPath))
 // Connect to MongoDB
 connectDB();
 
