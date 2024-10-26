@@ -40,7 +40,7 @@ const CreateCategory = () => {
       }
 
       const { data } = await axios.post(
-        "/api/category/create",
+        "http://localhost:1000/api/category/create",
         formData,
         {
           headers: {
@@ -68,7 +68,7 @@ const CreateCategory = () => {
   // Fetch all categories
   const getAllCategory = async () => {
     try {
-      const { data } = await axios.get("/api/category", {
+      const { data } = await axios.get("http://localhost:1000/api/category", {
         headers: {
           Authorization: `Bearer ${getToken()}`,
         },
@@ -104,7 +104,7 @@ const CreateCategory = () => {
       }
 
       const { data } = await axios.put(
-        `/api/category/update/${selected._id}`,
+        `http://localhost:1000/api/category/update/${selected._id}`,
         formData,
         {
           headers: {
@@ -136,7 +136,7 @@ const CreateCategory = () => {
     try {
       const token = getToken();
       const { data } = await axios.delete(
-        `/api/category/${id}`,
+        `http://localhost:1000/api/category/${id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -164,7 +164,7 @@ const CreateCategory = () => {
       render: (image) =>
         image ? (
           <img
-            src={`/${image}`}
+            src={`http://localhost:1000/${image}`}
             alt="Category"
             className="w-16 h-16 object-cover rounded"
           />

@@ -16,11 +16,22 @@
 .instrument {
   font-family: "Instrument Sans", sans-serif;
   font-optical-sizing: auto;
-  font-weight: 500;
+  font-weight: 400;
   font-style: normal;
   font-variation-settings:
     "wdth" 100;
 }
+
+.price {
+  font-family: "Instrument Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 200;
+  font-style: normal;
+  font-variation-settings:
+    "wdth" 100;
+}
+
+
 html {
   scroll-behavior: smooth;
 }

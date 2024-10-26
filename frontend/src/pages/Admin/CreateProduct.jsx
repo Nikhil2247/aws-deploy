@@ -23,7 +23,7 @@ const CreateProduct = () => {
   const fetchProducts = async () => {
     try {
       const { data } = await axios.get(
-        "/api/products/get-products",
+        "http://localhost:1000/api/products/get-products",
         {
           headers: { Authorization: `Bearer ${getToken()}` },
         }
@@ -47,7 +47,7 @@ const CreateProduct = () => {
 
   const fetchCategories = async () => {
     try {
-      const { data } = await axios.get("/api/category", {
+      const { data } = await axios.get("http://localhost:1000/api/category", {
         headers: { Authorization: `Bearer ${getToken()}` },
       });
       if (data.success) {
@@ -62,7 +62,7 @@ const CreateProduct = () => {
   // Fetch colors
   const fetchColors = async () => {
     try {
-      const { data } = await axios.get("/api/get-colors", {
+      const { data } = await axios.get("http://localhost:1000/api/get-colors", {
         headers: { Authorization: `Bearer ${getToken()}` },
       });
       if (data.status === "success") {
@@ -80,7 +80,7 @@ const CreateProduct = () => {
   const fetchSizes = async () => {
     try {
       const { data } = await axios.get(
-        "/api/size/get-sizes",
+        "http://localhost:1000/api/size/get-sizes",
         {
           headers: { Authorization: `Bearer ${getToken()}` },
         }
@@ -147,7 +147,7 @@ const CreateProduct = () => {
       // Update existing product
       if (editingProduct) {
         response = await axios.put(
-          `/api/products/update/${editingProduct._id}`,
+          `http://localhost:1000/api/products/update/${editingProduct._id}`,
           form,
           {
             headers: {
@@ -160,7 +160,7 @@ const CreateProduct = () => {
       // Create new product
       else {
         response = await axios.post(
-          "/api/products/create",
+          "http://localhost:1000/api/products/create",
           form,
           {
             headers: {
@@ -197,7 +197,7 @@ const CreateProduct = () => {
     try {
       const token = getToken();
       const data = await axios.delete(
-        `/api/products/delete/${id._id}`,
+        `http://localhost:1000/api/products/delete/${id._id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -237,7 +237,7 @@ const CreateProduct = () => {
         if (images && images.length > 0) {
           const featuredImage =
             images.find((img) => img.isFeatured) || images[0];
-          const imageUrl = `${featuredImage.url}`;
+          const imageUrl = `http://localhost:1000${featuredImage.url}`;
 
           return (
             <img

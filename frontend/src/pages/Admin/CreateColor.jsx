@@ -20,7 +20,7 @@ const CreateColor = () => {
   // Fetch all colors
   const fetchColors = async () => {
     try {
-      const { data } = await axios.get("/api/get-colors", {
+      const { data } = await axios.get("http://localhost:1000/api/get-colors", {
         headers: { Authorization: `Bearer ${getToken()}` },
       });
       if (data.status === "success") {
@@ -49,7 +49,7 @@ const CreateColor = () => {
       if (editingColor) {
         // Update existing color
         const { data } = await axios.put(
-          `/api/update-color/${editingColor._id}`,
+          `http://localhost:1000/api/update-color/${editingColor._id}`,
           formData,
           { headers: { Authorization: `Bearer ${token}` } }
         );
@@ -64,7 +64,7 @@ const CreateColor = () => {
       } else {
         // Create new color
         const { data } = await axios.post(
-          "/api/create-color",
+          "http://localhost:1000/api/create-color",
           formData,
           { headers: { Authorization: `Bearer ${token}` } }
         );
@@ -92,7 +92,7 @@ const CreateColor = () => {
   const handleDelete = async (id) => {
     try {
       const token = getToken();
-      const { data } = await axios.delete(`/api/delete-color/${id}`, {
+      const { data } = await axios.delete(`http://localhost:1000/api/delete-color/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       if (data.status === "success") {

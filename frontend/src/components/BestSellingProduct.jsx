@@ -144,44 +144,46 @@ const BestSelling = () => {
         {!loading && bestSellingProducts.length > 0 && (
           <div className="grid grid-cols-2 gap-4 lg:grid-cols-5 ">
             {bestSellingProducts.slice(0, 10).map((product, index) => (
-              <NavLink
-                key={product._id}
-               to={`/all-products/${product._id}`}
-                className="relative shadow-lg bg-gray-100 rounded-xl hover:shadow-2xl transition-all duration-300"
+            <NavLink
+                key={product._id} // Ensure correct key
+                to={`/all-products/${product._id}`}
+                className="relative "
                 ref={(el) => (productsRef.current[index] = el)}
               >
-                <span className="absolute top-2 left-2 bg-[#D2EF9A] text-sm px-2 py-1 rounded-full">
-                  {product.sale || "N/A"}
-                </span>
-                <img
-                  src={product.images[0]?.url || ""}
-                  alt={product.name}
-                  className="w-full h-64 rounded-xl  duration-300 object-cover"
-                />
-                <div className="p-4">
-                  <h3 className="text-xl instrument-sans text-gray-800">
-                    {product.name}
-                  </h3>
-                  {/* Price */}
-                  <div className="flex items-center space-x-2 mb-2">
-                    <span className="text-lg instrument-sans text-gray-600">
-                      ${product.variants?.[0]?.sellingPrice || product.sellingPrice}
-                    </span>
-                    <span className="text-lg instrument-sans text-red-600 line-through">
-                      ${product.variants?.[0]?.costPrice || product.costPrice}
-                    </span>
-                    {product.variants?.[0]?.costPrice >
+                 {product.variants?.[0]?.costPrice >
                       product.variants?.[0]?.sellingPrice && (
-                      <span className="text-md bg-[#D2EF9A] px-2 py-1 rounded-lg">
-                        {(
+                      <span className="text-sm price absolute top-2 left-2 bg-[#D2EF9A] px-2 py-1 rounded-md">
+                        - {(
                           ((product.variants[0]?.costPrice -
                             product.variants[0]?.sellingPrice) /
                             product.variants[0]?.costPrice) *
                           100
-                        ).toFixed(0)}
-                        % Off
+                        ).toFixed(0)}%
                       </span>
                     )}
+                <span className="absolute price top-10 left-2 bg-[#D2EF9A] text-sm px-2 py-1 rounded-md">
+                  {product.sale || ""}
+                </span>
+                <img
+                  src={`http://localhost:1000${product.images[0]?.url || ""}`}
+                  alt={product.name}
+                  className="w-full h-64 duration-300 object-cover bg-gray-50"
+                />
+                <div className="px-4 py-2">
+                  <span className="text-xl instrument-sans text-gray-800">
+                    {product.name}
+                  </span>
+                  {/* Price */}
+                  <div className="flex items-center space-x-2 mb-2">
+                    <span className="text-lg instrument text-gray-700">
+                      $
+                      {product.variants?.[0]?.sellingPrice ||
+                        product.sellingPrice}
+                    </span>
+                    <span className="text-lg instrument text-gray-400 line-through">
+                      ${product.variants?.[0]?.costPrice || product.costPrice}
+                    </span>
+                   
                   </div>
                 </div>
               </NavLink>

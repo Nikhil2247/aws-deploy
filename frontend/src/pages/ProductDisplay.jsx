@@ -5,6 +5,7 @@ import axios from "axios";
 import { StarIcon, PlusIcon, MinusIcon } from "@heroicons/react/24/outline";
 import Layout from "../components/Layout/Layout";
 import toast from "react-hot-toast";
+import { Progress } from "antd";
 
 // Define a mapping between color names and Tailwind CSS color classes
 const colorClassMap = {
@@ -124,22 +125,21 @@ const ProductDetail = () => {
   console.log("Available Colors:", availableColors);
   console.log("Available Sizes:", availableSizes);
 
+  // Calculate stock information for the selected variant
+  const selectedVariant = product.variants?.find(
+    (variant) =>
+      variant.color._id === selectedColor && variant.size._id === selectedSize
+  );
+  const stock = selectedVariant ? selectedVariant.quantity : 0;
+  const maxStock = 500; // Set a default max stock value; adjust based on your product data
+  const stockPercentage = (stock / maxStock) * 100;
+
   return (
     <Layout>
       <div className="container mx-auto lg:px-44 lg:py-10 py-4 px-4 grid grid-cols-1 md:grid-cols-2 gap-10">
         {/* Left - Product Image */}
-        <div>
-          <div className="relative">
-            {selectedImage && (
-              <img
-                src={selectedImage}
-                alt="Product"
-                className="w-full h-96 object-contain rounded-md"
-              />
-            )}
-          </div>
-
-          <div className="flex mt-4 space-x-3">
+        <div className="flex gap-4">
+          <div className="lg:mt-5 mt-11 space-y-3">
             {product.images?.length > 0 ? (
               product.images.map((image, idx) => (
                 <img
@@ -154,6 +154,15 @@ const ProductDetail = () => {
               ))
             ) : (
               <span>No images available</span>
+            )}
+          </div>
+          <div className="relative">
+            {selectedImage && (
+              <img
+                src={selectedImage}
+                alt="Product"
+                className="w-full h-96 object-contain bg-gray-50 py-4"
+              />
             )}
           </div>
         </div>
@@ -176,21 +185,20 @@ const ProductDetail = () => {
               ${product.variants?.[0]?.sellingPrice || product.sellingPrice}
             </span>
 
-            <p className="text-lg instrument-sans text-red-500 line-through ">
+            <p className="text-xl instrument text-gray-400 line-through ">
               ${product.variants[0]?.costPrice || "N/A"}
             </p>
             {/* Calculate and show discount if costPrice is greater than the price */}
             {product.variants?.[0]?.costPrice >
               product.variants?.[0]?.sellingPrice && (
-              <p className="text-md mt-2">
-                (
+              <p className="text-md mt-1 bg-[#D2EF9A] px-2 py-1 rounded-md price">
                 {(
                   ((product.variants[0]?.costPrice -
                     product.variants[0]?.sellingPrice) /
                     product.variants[0]?.costPrice) *
                   100
                 ).toFixed(0)}
-                % Off)
+                % Off
               </p>
             )}
           </div>
@@ -199,18 +207,18 @@ const ProductDetail = () => {
           <p className="text-gray-500 instrument-sans dark:text-white mb-6">
             {product.shortDescription}
           </p>
-          <hr className="mb-6 border-1 " />
+          <hr className="mb-4 border-1 " />
 
           {/* Colors */}
-          <div className="mb-6 flex gap-4">
-            <h4 className="text-md instrument-sans mt-2">Colors:</h4>
+          <div className="mb-4 flex gap-4">
+            <h4 className="text-md instrument-sans ">Colors:</h4>
             <div className="flex space-x-4">
               {availableColors.length > 0 ? (
                 availableColors.map((color, idx) => (
                   <button
                     key={idx}
                     onClick={() => setSelectedColor(color._id)} // Save the _id when color is selected
-                    className={`w-8 h-8 rounded-full border ${
+                    className={`w-5 h-5 rounded-full border ${
                       selectedColor === color._id ? "ring-2 ring-black" : ""
                     } ${colorClassMap[color.name] || "bg-gray-300"}`}
                   ></button>
@@ -222,7 +230,7 @@ const ProductDetail = () => {
           </div>
 
           {/* Sizes */}
-          <div className="mb-6 flex gap-4">
+          <div className="mb-4 flex gap-4">
             <h4 className="text-md instrument-sans mt-2">Size:</h4>
             <div className="flex space-x-3 ">
               {availableSizes.length > 0 ? (
@@ -244,7 +252,7 @@ const ProductDetail = () => {
           </div>
 
           {/* Quantity Selector */}
-          <div className="mb-6 flex gap-4">
+          <div className="mb-4 flex gap-4">
             <h4 className="text-md instrument-sans mt-2">Quantity:</h4>
             <div className="flex items-center space-x-3">
               <button
@@ -263,8 +271,18 @@ const ProductDetail = () => {
             </div>
           </div>
 
+          {/* Stock Progress Indicator */}
+          <span className="mb-4 text-[#1f1f1f]">
+            Hurry! Only {stock} Items Left In Stock
+          </span>
+          <Progress
+            percent={stockPercentage}
+            showInfo={false}
+            strokeColor="#1f1f1f"
+          />
+
           {/* Buttons */}
-          <div className="mb-6 flex space-x-4">
+          <div className="mb-6 flex space-x-4 mt-3">
             <button
               onClick={handleAddToCart}
               className="w-full px-5 py-3 bg-black text-white rounded-md"
@@ -284,9 +302,9 @@ const ProductDetail = () => {
       {/* Custom Tabs Section */}
       <div className="container mx-auto lg:px-44 lg:py-10 px-4">
         <div className="border border-gray-300 rounded-t-3xl p-4 ">
-          <nav className="-mb-px flex space-x-4">
+          <nav className="-mb-px flex lg:space-x-4 space-x-2">
             <button
-              className={`px-6 py-2 font-medium text-md ${
+              className={`lg:px-6 px-4 py-2 font-medium text-md ${
                 activeTab === "description"
                   ? "bg-[#1f1f1f] dark:bg-white dark:text-black rounded-full py-3 text-white text-sm instrument-sans"
                   : "dark:text-white text-sm instrument-sans border rounded-full border-gray-300"
@@ -333,7 +351,10 @@ const ProductDetail = () => {
             <div className=" rounded-md">
               <h3 className="text-2xl instrument-sans">Product Details</h3>
               <ul className="mt-4 text-gray-600 leading-6 dark:text-white">
-                <li>Price: ₹{product.variants?.[0]?.sellingPrice || product.sellingPrice}</li>
+                <li>
+                  Price: ₹
+                  {product.variants?.[0]?.sellingPrice || product.sellingPrice}
+                </li>
                 <li>
                   Stock Quantity: {product.variants?.[0]?.quantity || "N/A"}
                 </li>
@@ -374,47 +395,49 @@ const ProductDetail = () => {
           {similarProducts?.length > 0 ? (
             similarProducts.map((similarProduct) => (
               <NavLink
+                key={similarProduct._id} // Ensure correct key
                 to={`/all-products/${similarProduct._id}`}
-                key={similarProduct._id}
+                className="relative "
               >
-                <div className="shadow-lg bg-gray-100 rounded-xl hover:shadow-2xl transition-all duration-300 relative">
-                  <span className="absolute top-2 left-2 bg-[#D2EF9A] text-sm px-2 py-1 rounded-full">
-                    {similarProduct.sale || "N/A"}
+                {similarProduct.variants?.[0]?.costPrice >
+                  similarProduct.variants?.[0]?.sellingPrice && (
+                  <span className="text-sm price absolute top-2 left-2 bg-[#D2EF9A] px-2 py-1 rounded-md">
+                    -{" "}
+                    {(
+                      ((similarProduct.variants[0]?.costPrice -
+                        similarProduct.variants[0]?.sellingPrice) /
+                        similarProduct.variants[0]?.costPrice) *
+                      100
+                    ).toFixed(0)}
+                    %
                   </span>
-                  <img
-                    src={similarProduct.images?.[0]?.url || ""}
-                    alt={similarProduct.name}
-                    className="w-full h-56 rounded-t-md mb-4"
-                  />
-                  <div className="p-4">
-                    <h3 className="text-xl instrument-sans text-gray-800">
-                      {similarProduct.name}
-                    </h3>
-                    {/* Price */}
-                    <div className="flex items-center space-x-2 mb-2">
-                      <span className="text-lg instrument-sans text-gray-600">
-                        $
-                        {similarProduct.variants?.[0]?.sellingPrice ||
-                          similarProduct.sellingPrice}
-                      </span>
-                      <span className="text-lg instrument-sans text-red-600 line-through">
-                        $
-                        {similarProduct.variants?.[0]?.costPrice ||
-                          similarProduct.costPrice}
-                      </span>
-                      {similarProduct.variants?.[0]?.costPrice >
-                        similarProduct.variants?.[0]?.sellingPrice && (
-                        <span className="text-md bg-[#D2EF9A] px-2 py-1 rounded-lg">
-                          {(
-                            ((similarProduct.variants[0]?.costPrice -
-                              similarProduct.variants[0]?.sellingPrice) /
-                              similarProduct.variants[0]?.costPrice) *
-                            100
-                          ).toFixed(0)}
-                          % Off
-                        </span>
-                      )}
-                    </div>
+                )}
+                <span className="absolute price top-10 left-2 bg-[#D2EF9A] text-sm px-2 py-1 rounded-md">
+                  {similarProduct.sale || ""}
+                </span>
+                <img
+                  src={`http://localhost:1000${
+                    similarProduct.images[0]?.url || ""
+                  }`}
+                  alt={similarProduct.name}
+                  className="w-full h-64 duration-300 object-cover bg-gray-50 "
+                />
+                <div className="px-4 py-2">
+                  <span className="text-xl instrument-sans text-gray-800">
+                    {similarProduct.name}
+                  </span>
+                  {/* Price */}
+                  <div className="flex items-center space-x-2 mb-2">
+                    <span className="text-lg instrument text-gray-700">
+                      $
+                      {similarProduct.variants?.[0]?.sellingPrice ||
+                        similarProduct.sellingPrice}
+                    </span>
+                    <span className="text-lg instrument text-gray-400 line-through">
+                      $
+                      {similarProduct.variants?.[0]?.costPrice ||
+                        similarProduct.costPrice}
+                    </span>
                   </div>
                 </div>
               </NavLink>

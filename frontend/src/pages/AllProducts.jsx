@@ -228,40 +228,46 @@ const AllProducts = () => {
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
             {paginatedProducts.length > 0 ? (
               paginatedProducts.map((p) => (
-                <NavLink to={`/all-products/${p._id}`}
-                  key={p._id}
-                  className="relative bg-gray-100 hover:shadow-2xl duration-300 transition-all rounded-xl "
+                <NavLink
+                  key={p._id} // Ensure correct key
+                  to={`/all-products/${p._id}`}
+                  className="relative "
                 >
-                  <span className="absolute top-2 left-2 bg-[#D2EF9A] text-sm px-2 py-1 rounded-full">
+                  {p.variants?.[0]?.costPrice >
+                    p.variants?.[0]?.sellingPrice && (
+                    <span className="text-sm price absolute top-2 left-2 bg-[#D2EF9A] px-2 py-1 rounded-md">
+                      -{" "}
+                      {(
+                        ((p.variants[0]?.costPrice -
+                          p.variants[0]?.sellingPrice) /
+                          p.variants[0]?.costPrice) *
+                        100
+                      ).toFixed(0)}
+                      %
+                    </span>
+                  )}
+                  <span className="absolute price top-10 left-2 bg-[#D2EF9A] text-sm px-2 py-1 rounded-md">
                     {p.sale || "N/A"}
                   </span>
                   <img
-                    src={p.images[0]?.url || ""}
+                    src={`http://localhost:1000${p.images[0]?.url || ""}`}
                     alt={p.name}
-                    className="w-full h-64 rounded-xl  duration-300 object-cover"
+                    className="w-full h-64 duration-300 object-cover bg-gray-50"
                   />
-                  <div className="p-4">
-                    <h3 className="text-xl instrument-sans text-gray-800">
+                  <div className="px-4 py-2">
+                    <span className="text-xl instrument-sans text-gray-800">
                       {p.name}
-                    </h3>
+                    </span>
                     {/* Price */}
                     <div className="flex items-center space-x-2 mb-2">
-                      <span className="text-lg instrument-sans text-gray-600">
-                        ${p.variants?.[0]?.sellingPrice || p.sellingPrice}
+                      <span className="text-lg instrument text-gray-700">
+                        $
+                        {p.variants?.[0]?.sellingPrice ||
+                          p.sellingPrice}
                       </span>
-                      <span className="text-lg instrument-sans text-red-600 line-through">
+                      <span className="text-lg instrument text-gray-400 line-through">
                         ${p.variants?.[0]?.costPrice || p.costPrice}
                       </span>
-                      {p.variants?.[0]?.costPrice > p.variants?.[0]?.sellingPrice && (
-                        <span className="text-md bg-[#D2EF9A] px-2 py-1 rounded-lg">
-                          {(
-                            ((p.variants[0]?.costPrice - p.variants[0]?.sellingPrice) /
-                              p.variants[0]?.costPrice) *
-                            100
-                          ).toFixed(0)}
-                          % Off
-                        </span>
-                      )}
                     </div>
                   </div>
                 </NavLink>

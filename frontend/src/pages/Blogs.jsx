@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Layout from "../components/Layout/Layout";
+import { EyeIcon, XMarkIcon } from "@heroicons/react/24/outline";
 
 const Blogs = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -15,7 +16,8 @@ const Blogs = () => {
       author: "Chris Evans",
       date: "Dec 20, 2023",
       category: "JEAN, GLASSES",
-      image: "https://anvogue.vercel.app/_next/image?url=%2Fimages%2Fblog%2F1.png&w=3840&q=75",
+      image:
+        "https://anvogue.vercel.app/_next/image?url=%2Fimages%2Fblog%2F1.png&w=3840&q=75",
     },
     {
       title: "How To Build A Sustainable And Stylish Wardrobe",
@@ -26,7 +28,8 @@ const Blogs = () => {
       author: "Alex Balde",
       date: "Dec 21, 2023",
       category: "JEAN, SHOES",
-      image: "https://anvogue.vercel.app/_next/image?url=%2Fimages%2Fblog%2F2.png&w=3840&q=75",
+      image:
+        "https://anvogue.vercel.app/_next/image?url=%2Fimages%2Fblog%2F2.png&w=3840&q=75",
     },
     {
       title: "Fashion And Beauty Tips For Busy Professionals",
@@ -37,7 +40,8 @@ const Blogs = () => {
       author: "Leona Pablo",
       date: "Dec 22, 2023",
       category: "JEAN, SKIRT",
-      image: "https://d31vnrpespek4e.cloudfront.net/wp-content/uploads/sites/5/2020/05/26094641/blog-img-36362.png",
+      image:
+        "https://images.tailorstore.com/YToxOntzOjU6IndpZHRoIjtpOjk2MDt9/images%252Fcms%252F4820-imperia-navy-two-extra.jpg",
     },
   ];
 
@@ -55,7 +59,7 @@ const Blogs = () => {
     <Layout>
       <div className="min-h-screen py-10">
         <div className="max-w-6xl mx-auto px-6">
-          <h1 className="text-4xl font-bold text-center text-[#1f1f1f] mb-10">
+          <h1 className="text-4xl instrument-sans text-center text-[#1f1f1f] mb-10">
             Our Blogs
           </h1>
 
@@ -63,30 +67,32 @@ const Blogs = () => {
             {blogs.map((blog, index) => (
               <div
                 key={index}
-                className="bg-white rounded-lg shadow-lg overflow-hidden"
+                className="bg-white rounded-lg shadow-lg overflow-hidden relative"
               >
+                  <button
+                    onClick={() => handleViewMore(blog)}
+                    className="absolute bg-white rounded-full border-2 p-2 top-2 right-4"
+                  >
+                   <EyeIcon class="h-6 w-6 text-gray-500" />
+                  </button>
                 <img
                   src={blog.image}
                   alt={blog.title}
                   className="w-full h-60 object-cover"
                 />
                 <div className="p-6">
-                  <span className="inline-block bg-lime-200 text-lime-800 font-semibold text-sm px-3 py-1 rounded-full mb-3">
+                  <span className="inline-block bg-lime-200 text-lime-800 instrument-sans text-sm px-3 py-1 rounded-full mb-3">
                     {blog.category}
                   </span>
-                  <h2 className="text-xl font-bold text-gray-900 mb-2">
+                  <hr />
+                  <h2 className="text-xl instrument-sans text-gray-700 mb-2 mt-1">
                     {blog.title}
                   </h2>
-                  <div className="flex justify-between items-center text-gray-500 text-sm">
+                  <div className="flex justify-between items-center instrument text-gray-500 text-sm">
                     <p>by {blog.author}</p>
                     <p>{blog.date}</p>
                   </div>
-                  <button
-                    onClick={() => handleViewMore(blog)}
-                    className="text-blue-500 font-bold mt-4 hover:text-blue-700 focus:outline-none"
-                  >
-                    View More
-                  </button>
+                
                 </div>
               </div>
             ))}
@@ -96,32 +102,30 @@ const Blogs = () => {
         {/* Modal */}
         {isModalOpen && activeBlog && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-            <div className="bg-white rounded-lg shadow-lg max-w-4xl w-full p-8 relative">
+            <div className="bg-white rounded-lg shadow-lg max-w-xl w-full  relative">
               <button
                 onClick={closeModal}
-                className="absolute top-4 right-4 text-gray-600 hover:text-gray-900 focus:outline-none text-2xl"
+                className="absolute top-4 right-4 bg-white border-2 rounded-full p-2"
               >
-                &times;
+                <XMarkIcon className="h-6 w-6 text-gray-500 text-2xl" />
               </button>
               <img
                 src={activeBlog.image}
                 alt={activeBlog.title}
-                className="w-full h-60 object-cover rounded-lg mb-4"
+                className="w-full h-72 object-cover rounded-t-2xl "
               />
-              <h2 className="text-3xl font-bold mb-4">{activeBlog.title}</h2>
-              <div className="flex justify-between items-center text-gray-500 text-sm mb-6">
-                <p>by {activeBlog.author}</p>
-                <p>{activeBlog.date}</p>
+              <div className="p-3">
+                <h2 className="text-3xl instrument-sans mb-4 text-gray-700">
+                  {activeBlog.title}
+                </h2>
+                <div className="flex justify-between items-center text-gray-500 text-sm instrument ">
+                  <p>by {activeBlog.author}</p>
+                  <p>{activeBlog.date}</p>
+                </div>
+                <p className="text-lg text-gray-600 mb-6 instrument">
+                  {activeBlog.fullContent}
+                </p>
               </div>
-              <p className="text-lg text-gray-700 mb-6">
-                {activeBlog.fullContent}
-              </p>
-              <button
-                onClick={closeModal}
-                className="text-blue-500 font-bold hover:text-blue-700 focus:outline-none"
-              >
-                Close
-              </button>
             </div>
           </div>
         )}

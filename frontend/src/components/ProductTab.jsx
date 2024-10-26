@@ -26,52 +26,48 @@ const ProductCard = ({ product, openQuickView }) => {
   };
   return (
     <div className=" dark:bg-gray-900 relative group overflow-hidden">
-      <NavLink to={`/all-products/${product._id}`} className="relative">
-        <span className="absolute top-2 left-2 bg-[#D2EF9A] text-sm px-2 py-1 rounded-full">
-          {product.sale || "N/A"}
+      <NavLink
+        key={product._id} // Ensure correct key
+        to={`/all-products/${product._id}`}
+        className="relative "
+      >
+        {product.variants?.[0]?.costPrice >
+          product.variants?.[0]?.sellingPrice && (
+          <span className="text-sm price absolute top-2 left-2 bg-[#D2EF9A] px-2 py-1 rounded-md">
+            -{" "}
+            {(
+              ((product.variants[0]?.costPrice -
+                product.variants[0]?.sellingPrice) /
+                product.variants[0]?.costPrice) *
+              100
+            ).toFixed(0)}
+            %
+          </span>
+        )}
+        <span className="absolute price top-10 left-2 bg-[#D2EF9A] text-sm px-2 py-1 rounded-md">
+          {product.sale || ""}
         </span>
         <img
-          src={product.images[0]?.url || ""}
+          src={`http://localhost:1000${product.images[0]?.url || ""}`}
           alt={product.name}
-          className="w-full h-64 rounded-xl  duration-300 object-cover"
+          className="w-full h-64 duration-300 object-cover bg-gray-50"
         />
-        <div className="p-4">
-          <h3 className="text-xl instrument-sans text-gray-800">
+        <div className="px-4 py-2">
+          <span className="text-xl instrument-sans text-gray-800">
             {product.name}
-          </h3>
+          </span>
           {/* Price */}
           <div className="flex items-center space-x-2 mb-2">
-            <span className="text-lg instrument-sans text-gray-600">
+            <span className="text-lg instrument text-gray-700">
               ${product.variants?.[0]?.sellingPrice || product.sellingPrice}
             </span>
-            <span className="text-lg instrument-sans text-red-600 line-through">
+            <span className="text-lg instrument text-gray-400 line-through">
               ${product.variants?.[0]?.costPrice || product.costPrice}
             </span>
-            {product.variants?.[0]?.costPrice >
-              product.variants?.[0]?.sellingPrice && (
-              <span className="text-md bg-[#D2EF9A] px-2 py-1 rounded-lg">
-                {(
-                  ((product.variants[0]?.costPrice -
-                    product.variants[0]?.sellingPrice) /
-                    product.variants[0]?.costPrice) *
-                  100
-                ).toFixed(0)}
-                % Off
-              </span>
-            )}
           </div>
         </div>
-        {/* <div className="absolute inset-0 bg-opacity-0 group-hover:bg-opacity-30 bg-black flex justify-center items-center transition-opacity duration-300 opacity-0 group-hover:opacity-100">
-          <button className="bg-white text-black px-4 py-2 m-2 rounded-full hover:bg-gray-100 transition">
-            <ShoppingBagIcon
-              aria-hidden="true"
-              className="h-6 w-6"
-              onClick={() => handleAddToCart(product)}
-            />
-          </button>
-        </div> */}
       </NavLink>
-      <div className="absolute bottom-24 left-0 right-0 py-4 px-16 bg-transparent bg-opacity-75 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+      <div className="absolute bottom-20 left-0 right-0 py-4 px-16 bg-transparent bg-opacity-75 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
         <button
           onClick={() => openQuickView(product)}
           className="w-full bg-white text-black py-2 rounded-full hover:bg-gray-300 transition"
@@ -207,7 +203,7 @@ const QuickViewModal = ({ product, open, setOpen }) => {
               <h1 className="text-2xl instrument-sans mb-4 dark:text-white">
                 {product.name}
               </h1>
-              <p className="instrument-sans ">{product.description}</p>
+              <p className="instrument description " dangerouslySetInnerHTML={{ __html: product.description }}></p>
 
               {/* Price */}
               <div className="flex items-center space-x-4 mb-6">

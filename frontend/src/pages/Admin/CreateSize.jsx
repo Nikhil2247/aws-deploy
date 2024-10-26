@@ -20,7 +20,7 @@ const CreateSize = () => {
   const fetchSizes = async () => {
     try {
       const { data } = await axios.get(
-        "/api/size/get-sizes",
+        "http://localhost:1000/api/size/get-sizes",
         {
           headers: { Authorization: `Bearer ${getToken()}` },
         }
@@ -51,7 +51,7 @@ const CreateSize = () => {
       if (editingSize) {
         // Update existing color
         const { data } = await axios.put(
-          `/api/size/update-size/${editingSize._id}`,
+          `http://localhost:1000/api/size/update-size/${editingSize._id}`,
           formData,
           { headers: { Authorization: `Bearer ${token}` } }
         );
@@ -66,7 +66,7 @@ const CreateSize = () => {
       } else {
         // Create new Size
         const { data } = await axios.post(
-          "/api/size/create-size",
+          "http://localhost:1000/api/size/create-size",
           formData,
           { headers: { Authorization: `Bearer ${token}` } }
         );
@@ -95,7 +95,7 @@ const CreateSize = () => {
     try {
       const token = getToken();
       const { data } = await axios.delete(
-        `/api/size/delete-size/${id}`,
+        `http://localhost:1000/api/size/delete-size/${id}`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }

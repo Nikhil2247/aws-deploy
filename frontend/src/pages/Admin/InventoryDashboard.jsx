@@ -46,7 +46,7 @@ const InventoryDashboard = () => {
     const fetchInventoryData = async () => {
       try {
         const { data } = await axios.get(
-          "/api/products/get-products"
+          "http://localhost:1000/api/products/get-products"
         );
 
         if (data.status === "success") {
@@ -114,7 +114,7 @@ const InventoryDashboard = () => {
 
           // Fetch the sold products
           const soldResponse = await axios.get(
-            "/api/inventory/sold-products"
+            "http://localhost:1000/api/inventory/sold-products"
           );
 
           const totalSoldProducts = soldResponse.data.soldProducts.reduce(
@@ -175,7 +175,7 @@ const InventoryDashboard = () => {
       dataIndex: "status",
       key: "status",
       render: (status) => (
-        <span className={`text-${status === "active" ? "green" : "red"}-600`}>
+        <span className={`px-2 py-1 rounded-full ${status === "active" ? "text-green-600 bg-green-50 border border-green-300" : "text-red-600 bg-red-50 border border-red-300"}`}>
           {status}
         </span>
       ),

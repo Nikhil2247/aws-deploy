@@ -43,24 +43,24 @@ const AdminDashboard = () => {
     const fetchData = async () => {
       try {
         const usersResponse = await axios.get(
-          `/api/users`
+          `http://localhost:1000/api/users`
         );
         const { data } = usersResponse.data;
         setUsers(usersResponse.data);
         setUserCount(data.filter((user) => user.role !== "admin").length);
 
         const categoryResponse = await axios.get(
-          "/api/category"
+          "http://localhost:1000/api/category"
         );
         setCategoryCount(categoryResponse?.data?.categories?.length || 0);
 
         const productResponse = await axios.get(
-          "/api/products/get-products"
+          "http://localhost:1000/api/products/get-products"
         );
         setProductCount(productResponse?.data?.data?.length || 0);
 
         const orderResponse = await axios.get(
-          "/api/order/all"
+          "http://localhost:1000/api/order/all"
         );
         const fetchedOrders = orderResponse?.data?.data || [];
         setOrders(fetchedOrders);
@@ -239,7 +239,7 @@ const AdminDashboard = () => {
       render: (text, record) => (
         <div className="flex items-center space-x-3">
           <img
-            src={`${record?.images[0]?.url || ""}`}
+            src={`http://localhost:1000${record?.images[0]?.url || ""}`}
             alt={record.name}
             className="w-10 h-10 object-cover"
           />
@@ -286,12 +286,12 @@ const AdminDashboard = () => {
       key: "status",
       render: (status) => (
         <span
-          className={`px-2 py-1 rounded-lg ${
+          className={`px-3 py-1 rounded-full ${
             status === "completed"
-              ? "bg-green-500 text-white"
+              ? "bg-green-50 text-green-600 border border-green-300"
               : status === "pending"
-              ? "bg-yellow-500 text-white"
-              : "bg-gray-500 text-white"
+              ? "bg-yellow-50 text-yellow-600 border border-yellow-300"
+              : "bg-gray-50 text-gray-600 border border-gray-300"
           }`}
         >
           {status}
