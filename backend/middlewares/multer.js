@@ -39,12 +39,12 @@ const processImages = async (req, res, next) => {
     const processedFiles = await Promise.all(
       req.files.map(async (file) => {
         const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
-        const outputFilename = `${uniqueSuffix}.webp`;
+        const outputFilename = `${uniqueSuffix}.avif`;
         const outputPath = path.join( '../uploads/products', outputFilename);
 
         // Convert the uploaded image buffer to WebP format and save it
         await sharp(file.buffer)
-          .webp({ quality: 80 })
+          .avif({ quality: 40 })
           .toFile(outputPath);
 
         return {
