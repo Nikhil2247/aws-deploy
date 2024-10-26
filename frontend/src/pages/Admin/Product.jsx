@@ -362,18 +362,21 @@ const Product = () => {
               <div
                 key={product._id} // Ensure correct key
                 className="relative "
+                onClick={() => openQuickView(product)}
               >
-                 {product.variants?.[0]?.costPrice >
-                      product.variants?.[0]?.sellingPrice && (
-                      <span className="text-sm price absolute top-2 left-2 bg-[#D2EF9A] px-2 py-1 rounded-md">
-                        - {(
-                          ((product.variants[0]?.costPrice -
-                            product.variants[0]?.sellingPrice) /
-                            product.variants[0]?.costPrice) *
-                          100
-                        ).toFixed(0)}%
-                      </span>
-                    )}
+                {product.variants?.[0]?.costPrice >
+                  product.variants?.[0]?.sellingPrice && (
+                  <span className="text-sm price absolute top-2 left-2 bg-[#D2EF9A] px-2 py-1 rounded-md">
+                    -{" "}
+                    {(
+                      ((product.variants[0]?.costPrice -
+                        product.variants[0]?.sellingPrice) /
+                        product.variants[0]?.costPrice) *
+                      100
+                    ).toFixed(0)}
+                    %
+                  </span>
+                )}
                 <span className="absolute price top-10 left-2 bg-[#D2EF9A] text-sm px-2 py-1 rounded-md">
                   {product.sale || "N/A"}
                 </span>
@@ -396,7 +399,6 @@ const Product = () => {
                     <span className="text-lg instrument text-gray-400 line-through">
                       ${product.variants?.[0]?.costPrice || product.costPrice}
                     </span>
-                   
                   </div>
                 </div>
               </div>
