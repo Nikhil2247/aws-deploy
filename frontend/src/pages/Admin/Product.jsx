@@ -71,7 +71,7 @@ const Product = () => {
   const fetchProducts = async () => {
     try {
       const { data } = await axios.get(
-        "http://localhost:1000/api/products/get-products",
+        "/api/products/get-products",
         {
           headers: { Authorization: `Bearer ${getToken()}` },
         }
@@ -90,7 +90,7 @@ const Product = () => {
   // Fetch categories
   const fetchCategories = async () => {
     try {
-      const { data } = await axios.get("http://localhost:1000/api/category", {
+      const { data } = await axios.get("/api/category", {
         headers: { Authorization: `Bearer ${getToken()}` },
       });
       if (data.success) {
@@ -105,7 +105,7 @@ const Product = () => {
   // Fetch users for placing an order
   const fetchUsers = async () => {
     try {
-      const { data } = await axios.get("http://localhost:1000/api/users", {
+      const { data } = await axios.get("/api/users", {
         headers: { Authorization: `Bearer ${getToken()}` },
       });
       setUsers(data?.users || data?.data || []);
@@ -271,7 +271,7 @@ const Product = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:1000/api/order/admin/place-order",
+        "/api/order/admin/place-order",
         orderData,
         {
           headers: { Authorization: `Bearer ${getToken()}` },
@@ -379,7 +379,7 @@ const Product = () => {
                   {product.sale || "N/A"}
                 </span>
                 <img
-                  src={`http://localhost:1000${product.images[0]?.url || ""}`}
+                  src={product.images[0]?.url || ""}
                   alt={product.name}
                   className="w-full h-48 duration-300 object-cover bg-gray-50"
                 />

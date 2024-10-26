@@ -237,7 +237,7 @@ const CreateProduct = () => {
         if (images && images.length > 0) {
           const featuredImage =
             images.find((img) => img.isFeatured) || images[0];
-          const imageUrl = `http://localhost:1000${featuredImage.url}`;
+          const imageUrl = featuredImage.url
 
           return (
             <img

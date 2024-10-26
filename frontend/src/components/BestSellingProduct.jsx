@@ -165,7 +165,7 @@ const BestSelling = () => {
                   {product.sale || ""}
                 </span>
                 <img
-                  src={`http://localhost:1000${product.images[0]?.url || ""}`}
+                  src={product.images[0]?.url || ""}
                   alt={product.name}
                   className="w-full h-64 duration-300 object-cover bg-gray-50"
                 />

@@ -20,7 +20,7 @@ const CreateReviewForm = () => {
 
       // API call to submit the review
       const response = await axios.post(
-        "http://localhost:1000/api/reviews/create",
+        "/api/reviews/create",
         reviewData,
         {
           headers: {

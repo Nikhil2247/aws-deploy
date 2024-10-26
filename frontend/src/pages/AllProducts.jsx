@@ -250,7 +250,7 @@ const AllProducts = () => {
                     {p.sale || "N/A"}
                   </span>
                   <img
-                    src={`http://localhost:1000${p.images[0]?.url || ""}`}
+                    src={p.images[0]?.url || ""}
                     alt={p.name}
                     className="w-full h-64 duration-300 object-cover bg-gray-50"
                   />

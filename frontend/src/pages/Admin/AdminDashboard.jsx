@@ -43,24 +43,24 @@ const AdminDashboard = () => {
     const fetchData = async () => {
       try {
         const usersResponse = await axios.get(
-          `http://localhost:1000/api/users`
+          `/api/users`
         );
         const { data } = usersResponse.data;
         setUsers(usersResponse.data);
         setUserCount(data.filter((user) => user.role !== "admin").length);
 
         const categoryResponse = await axios.get(
-          "http://localhost:1000/api/category"
+          "/api/category"
         );
         setCategoryCount(categoryResponse?.data?.categories?.length || 0);
 
         const productResponse = await axios.get(
-          "http://localhost:1000/api/products/get-products"
+          "/api/products/get-products"
         );
         setProductCount(productResponse?.data?.data?.length || 0);
 
         const orderResponse = await axios.get(
-          "http://localhost:1000/api/order/all"
+          "/api/order/all"
         );
         const fetchedOrders = orderResponse?.data?.data || [];
         setOrders(fetchedOrders);
@@ -239,7 +239,7 @@ const AdminDashboard = () => {
       render: (text, record) => (
         <div className="flex items-center space-x-3">
           <img
-            src={`http://localhost:1000${record?.images[0]?.url || ""}`}
+            src={record?.images[0]?.url || ""}
             alt={record.name}
             className="w-10 h-10 object-cover"
           />

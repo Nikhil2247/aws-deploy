@@ -416,9 +416,7 @@ const ProductDetail = () => {
                   {similarProduct.sale || ""}
                 </span>
                 <img
-                  src={`http://localhost:1000${
-                    similarProduct.images[0]?.url || ""
-                  }`}
+                  src={similarProduct.images[0]?.url || ""}
                   alt={similarProduct.name}
                   className="w-full h-64 duration-300 object-cover bg-gray-50 "
                 />
