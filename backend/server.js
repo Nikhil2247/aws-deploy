@@ -52,9 +52,7 @@ app.use('/api', navigationRoutes);
 
 const buildPath = path.join(_dirname, "../frontend/build")
 app.use(express.static(buildPath))
-// app.use('*', function(req, res){
-//   res.sendFile(path.join(_dirname,'../frontend/build/index.html'))
-// })
+
 // Connect to MongoDB
 connectDB();
 
